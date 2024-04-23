@@ -11,13 +11,13 @@
 int main(int argc, char* argv[])
 {
 	const char* appName = "Writer";
-	openlog(appName, 0, LOG_USER);
+	
 	if( argc < 3 )
 	{
 		syslog(LOG_ERR, "Invalid Number of arguments: %d", argc );
 		return 1;
 	}
-
+	openlog(appName, 0, LOG_USER);
 	umask(0000);
 	char* write_file = argv[1];
 	char* write_string = argv[2];

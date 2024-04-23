@@ -1,7 +1,7 @@
 # Compiler settings
 CC := gcc
 CFLAGS := -Wall -Wextra 
-TARGET := writer.exe
+TARGET := writer
 SRCS := writer.c
 OBJS := $(SRCS:.c=.o)
 
