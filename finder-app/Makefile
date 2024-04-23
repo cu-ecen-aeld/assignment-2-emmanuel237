@@ -1,27 +1,21 @@
 # Compiler settings
 CC := gcc
-#CROSS_COMPILE := aarch64-linux-gnu-  # Cross-compiler prefix (adjust as needed)
-
-CFLAGS := -Wall -Wextra  #-O2
-
-# Source files and output binary
-SRCS := *.c
-OBJS := $(SRCS:.c=.o)
+CFLAGS := -Wall -Wextra 
 TARGET := writer.exe
+SRCS := writer.c
+OBJS := $(SRCS:.c=.o)
 
-# Native build target
-.PHONY: 
-native: $(TARGET)
+# Default target
+all: $(TARGET)
 
-# Build rule for native compilation
+# Compile the source file into an object file
+%.o: %.c
+	$(CROSS_COMPILE)$(CC) $(CFLAGS) -c $< -o $@
+
+# Link the object files to create the executable
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CROSS_COMPILE)$(CC) $(CFLAGS) $^ -o $@
 
-# Build rule for cross-compilation
-$(OBJS): %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Clean target
-.PHONY: clean
+# Clean up intermediate object files and the executable
 clean:
 	rm -f $(OBJS) $(TARGET)
